@@ -1,3 +1,3 @@
-# Basic Postgres Python
+# Postgres Django Strawberry
 
-This repository provides a basic python environment connected with PostgreSQL database.
+This repository provides a django project template using strawberry connected with PostgreSQL database.
