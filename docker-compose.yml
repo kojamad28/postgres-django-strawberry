@@ -10,20 +10,33 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  python:
+  django:
+    image: kojamad28/postgres-django-strawberry
+    container_name: django
     build: 
       context: .
       args:
         REQ_TXT: "requirements.txt"
-    image: kojamad28/basic-postgres-python
-    container_name: python
-    command: /bin/bash
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
     volumes:
-     - .:/usr/src/app
-    tty: true
-    stdin_open: true
+      - .:/usr/src/app
+    expose:
+      - "8000"
+    env_file:
+      - ./.env.development
     depends_on:
       - postgres
+  nginx:
+    image: kojamad28/django-strawberry-nginx
+    container_name: nginx
+    build: ./nginx
+    volumes:
+      - ./static:/usr/src/app/static
+      - ./media:/usr/src/app/media
+    ports:
+      - "80:80"
+    depends_on:
+      - django
 
 volumes:
   postgres_data:
