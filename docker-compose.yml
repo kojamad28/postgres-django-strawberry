@@ -10,33 +10,43 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  django:
+    networks:
+      - postgres-sgd-network
+  sgd:
     image: kojamad28/postgres-django-strawberry
-    container_name: django
+    container_name: sgd
     build: 
-      context: .
+      context: ./sgd
       args:
         REQ_TXT: "requirements.txt"
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    command: uvicorn config.asgi:application --host 0.0.0.0 --port 8000
     volumes:
       - .:/usr/src/app
     expose:
       - "8000"
     env_file:
-      - ./.env.development
+      - ./sgd/.env.development
     depends_on:
       - postgres
+    networks:
+      - postgres-sgd-network
   nginx:
     image: kojamad28/django-strawberry-nginx
     container_name: nginx
     build: ./nginx
     volumes:
-      - ./static:/usr/src/app/static
-      - ./media:/usr/src/app/media
+      - ./sgd/static:/usr/src/app/static
+      - ./sgd/media:/usr/src/app/media
     ports:
       - "80:80"
     depends_on:
-      - django
+      - sgd
+    networks:
+      - postgres-sgd-network
+
+networks:
+  postgres-sgd-network:
+    driver: bridge
 
 volumes:
   postgres_data:
