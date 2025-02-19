@@ -1,17 +1,7 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from strawberry.django.views import AsyncGraphQLView
 
 from .models import CustomUser
-from .serializers import UserListSerializer, UserDetailSerializer
 
 
-class UserListView(ListAPIView):
-
-    queryset = CustomUser.objects.all()
-    serializer_class = UserListSerializer
-
-
-class UserDetailView(RetrieveAPIView):
-
-    queryset = CustomUser.objects.all()
-    serializer_class = UserDetailSerializer
-    lookup_field = "username"
+class CustomUserGraphQLView(AsyncGraphQLView):
+    pass  # 将来的にGraphQLの共通部分をカスタマイズしたい場合に対応できるようにする。
