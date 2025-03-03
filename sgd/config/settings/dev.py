@@ -1,3 +1,5 @@
+import sys
+
 import environ
 import structlog
 
@@ -16,6 +18,25 @@ SECRET_KEY = env("SECRET_KEY", default="django-secretkey")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+
+# Application definition
+
+INSTALLED_APPS += ["silk"]
+
+MIDDLEWARE += ["silk.middleware.SilkyMiddleware"]
+
+TESTING = "test" in sys.argv
+
+if not TESTING:
+    INSTALLED_APPS = [
+        *INSTALLED_APPS,
+        "debug_toolbar",
+    ]
+    MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        *MIDDLEWARE,
+    ]
 
 
 # Database

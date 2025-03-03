@@ -1,18 +1,1 @@
-black
-ruff
-mypy
-tox
-psycopg
-django
-django-environ
-django-silk
-django-structlog
-pytest-django
-pytest-randomly
-pytest-cov
-pytest-structlog
-factory-boy
-django-structlog
-strawberry-graphql[asgi]
-strawberry-graphql-django
-uvicorn[standard]
+-r requirements/prod.txt

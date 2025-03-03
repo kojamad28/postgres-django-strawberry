@@ -1,0 +1,9 @@
+
+psycopg
+django
+django-environ
+django-structlog
+django-structlog
+strawberry-graphql[asgi]
+strawberry-graphql-django
+uvicorn[standard]
