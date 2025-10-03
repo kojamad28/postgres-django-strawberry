@@ -1,5 +1,7 @@
 uvicorn[standard]
 django
+strawberry-graphql[asgi]
+strawberry-graphql-django
 -r common.txt
 black
 ruff

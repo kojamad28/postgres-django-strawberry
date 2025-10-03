@@ -1,4 +1,6 @@
 uvicorn[standard]==0.31
 django==5.2
+strawberry-graphql[asgi]==0.196
+strawberry-graphql-django==0.15
 -r common.txt
 sentry-sdk[django]
