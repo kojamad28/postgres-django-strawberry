@@ -1,3 +1,4 @@
+structlog
 psycopg
 django-environ
 django-structlog

@@ -7,6 +7,7 @@ black
 ruff
 mypy
 tox
+pytest
 pytest-django
 pytest-randomly
 pytest-cov
@@ -14,4 +15,5 @@ pytest-structlog
 factory-boy
 django-silk
 django-debug-toolbar
+sphinx
 sphinxcontrib-django
